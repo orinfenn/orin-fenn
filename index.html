@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Orin Fenn</title>
+  <meta name="description" content="Orin Fenn: a jellyfish floating through the sea of life. Bots, worlds, and Saucepan / Janitor homepage commissions." />
+  <meta property="og:title" content="Orin Fenn" />
+  <meta property="og:description" content="A jellyfish floating through the sea of life. Bots, worlds, and homepage commissions." />
+  <meta property="og:image" content="assets/logo.webp" />
+  <meta name="theme-color" content="#0d1a22" />
+  <link rel="icon" href="assets/jelly.webp" type="image/webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&display=swap" rel="stylesheet" />
+
+<!--
+  ORIN FENN: HOMEPAGE
+  Deep-sea ink, brass frames, peach glow, floating jellyfish.
+  Same palette and motifs as the Saucepan profile template.
+
+  EDIT HERE
+  - Colors: the --variables in :root below
+  - Images: everything lives in /assets
+  - Links: the "Where to find me" section (#find)
+  - Mascot lines: .mascot-speech blocks near the bottom of <body>
+-->
+<style>
+  :root {
+    --ink: #0d1a22;
+    --ink-deep: #071016;
+    --panel: #132733;
+    --panel-a: rgba(19, 39, 51, 0.88);
+    --brass: #c9a96a;
+    --brass-dim: rgba(201, 169, 106, 0.4);
+    --paper: #e8dcc2;
+    --ember: #d9825b;
+    --peach: #f2b38a;
+    --teal: #8fa8a6;
+    --glow: rgba(217, 130, 91, 0.45);
+    --serif: 'Cormorant Garamond', Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+    --caps: 'Cormorant SC', 'Cormorant Garamond', Palatino, Georgia, serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--ink);
+    color: var(--paper);
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  a { color: var(--peach); }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--ember);
+    outline-offset: 3px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 10000;
+    padding: 0.5rem 1rem;
+    background: var(--brass);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .skip-link:focus { top: 1rem; }
+
+  /* ---------- Fixed ocean backdrop ---------- */
+  .page-bg,
+  .page-veil,
+  .page-rays,
+  .page-bubbles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .page-bg {
+    background: url('assets/reef.jpg') center / cover no-repeat;
+  }
+
+  .page-veil {
+    background: linear-gradient(180deg, rgba(13, 26, 34, 0.55) 0%, rgba(13, 26, 34, 0.86) 40%, rgba(7, 16, 22, 0.94) 100%);
+  }
+
+  .page-rays {
+    overflow: hidden;
+    mix-blend-mode: screen;
+  }
+
+  .page-rays span {
+    position: absolute;
+    top: -15%;
+    height: 130%;
+    background: linear-gradient(180deg, rgba(150, 175, 255, 0.22) 0%, rgba(150, 175, 255, 0.07) 55%, rgba(150, 175, 255, 0) 100%);
+    transform-origin: top center;
+    filter: blur(10px);
+    opacity: 0.4;
+    animation: page-ray 9s ease-in-out infinite;
+  }
+
+  .page-rays span:nth-child(1) { left: 6%;  width: 7%;  transform: rotate(-16deg); animation-delay: 0s; }
+  .page-rays span:nth-child(2) { left: 22%; width: 12%; transform: rotate(-16deg); animation-delay: -2.2s; }
+  .page-rays span:nth-child(3) { left: 40%; width: 8%;  transform: rotate(-14deg); animation-delay: -4.5s; }
+  .page-rays span:nth-child(4) { left: 58%; width: 14%; transform: rotate(-17deg); animation-delay: -6.7s; }
+  .page-rays span:nth-child(5) { left: 78%; width: 9%;  transform: rotate(-15deg); animation-delay: -3.3s; }
+
+  .page-bubbles { overflow: hidden; }
+
+  .page-bubbles span {
+    position: absolute;
+    bottom: -24px;
+    border: 1px solid rgba(143, 168, 166, 0.5);
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), rgba(143, 168, 166, 0.06) 40%, rgba(143, 168, 166, 0) 70%);
+    opacity: 0;
+    animation: page-rise 16s linear infinite;
+  }
+
+  .page-bubbles span:nth-child(odd) { animation-duration: 12s; }
+  .page-bubbles span:nth-child(1)  { left: 6%;  width: 8px;  height: 8px;  animation-delay: 0s; }
+  .page-bubbles span:nth-child(2)  { left: 12%; width: 5px;  height: 5px;  animation-delay: 2.5s; }
+  .page-bubbles span:nth-child(3)  { left: 19%; width: 12px; height: 12px; animation-delay: 5.5s; }
+  .page-bubbles span:nth-child(4)  { left: 27%; width: 7px;  height: 7px;  animation-delay: 3.5s; }
+  .page-bubbles span:nth-child(5)  { left: 34%; width: 10px; height: 10px; animation-delay: 8s; }
+  .page-bubbles span:nth-child(6)  { left: 41%; width: 5px;  height: 5px;  animation-delay: 1.2s; }
+  .page-bubbles span:nth-child(7)  { left: 49%; width: 14px; height: 14px; animation-delay: 4.4s; }
+  .page-bubbles span:nth-child(8)  { left: 56%; width: 6px;  height: 6px;  animation-delay: 9s; }
+  .page-bubbles span:nth-child(9)  { left: 63%; width: 9px;  height: 9px;  animation-delay: 1.8s; }
+  .page-bubbles span:nth-child(10) { left: 70%; width: 12px; height: 12px; animation-delay: 6.5s; }
+  .page-bubbles span:nth-child(11) { left: 77%; width: 6px;  height: 6px;  animation-delay: 3s; }
+  .page-bubbles span:nth-child(12) { left: 84%; width: 10px; height: 10px; animation-delay: 7.5s; }
+  .page-bubbles span:nth-child(13) { left: 91%; width: 7px;  height: 7px;  animation-delay: 0.6s; }
+  .page-bubbles span:nth-child(14) { left: 96%; width: 5px;  height: 5px;  animation-delay: 5s; }
+
+  @keyframes page-ray {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.55; }
+  }
+
+  @keyframes page-rise {
+    0% { transform: translate(0, 0); opacity: 0; }
+    10% { opacity: 0.8; }
+    35% { transform: translate(8px, -40vh); }
+    65% { transform: translate(-8px, -80vh); }
+    100% { transform: translate(0, -115vh); opacity: 0; }
+  }
+
+  /* ---------- Loader ---------- */
+  .orin-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    background: #0d1a22 url('assets/reef.jpg') center / cover;
+    animation: loader-out 0.9s ease 2.2s forwards;
+  }
+
+  .orin-loader::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 42%, rgba(19, 39, 51, 0.82) 0%, rgba(13, 26, 34, 0.96) 75%);
+  }
+
+  .loader-jelly {
+    position: relative;
+    width: clamp(120px, 28vw, 220px);
+    height: clamp(140px, 32vw, 250px);
+    background: url('assets/jelly.webp') center / contain no-repeat;
+    animation: loader-bob 4.5s ease-in-out infinite, loader-glow 3s ease-in-out infinite;
+  }
+
+  .loader-text {
+    position: relative;
+    font-family: var(--caps);
+    font-size: 1.25rem;
+    letter-spacing: 5px;
+    color: var(--brass);
+  }
+
+  .loader-text span {
+    opacity: 0.2;
+    animation: loader-dot 1.4s ease-in-out infinite;
+  }
+
+  .loader-text .d2 { animation-delay: 0.2s; }
+  .loader-text .d3 { animation-delay: 0.4s; }
+
+  @keyframes loader-bob {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-24px) rotate(2deg); }
+  }
+
+  @keyframes loader-glow {
+    0%, 100% { filter: drop-shadow(0 0 12px rgba(217, 130, 91, 0.25)); }
+    50% { filter: drop-shadow(0 0 30px rgba(217, 130, 91, 0.65)); }
+  }
+
+  @keyframes loader-dot {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes loader-out {
+    to { opacity: 0; visibility: hidden; }
+  }
+
+  /* ---------- Layout ---------- */
+  .page {
+    position: relative;
+    z-index: 1;
+  }
+
+  .wrap {
+    width: min(1040px, 100% - 2rem);
+    margin: 0 auto;
+  }
+
+  /* ---------- Nav ---------- */
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 0.6rem 0;
+    background: linear-gradient(180deg, rgba(7, 16, 22, 0.92), rgba(7, 16, 22, 0.75));
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--brass-dim);
+  }
+
+  .site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-nav a {
+    display: block;
+    padding: 0.3rem 0.85rem;
+    border: 1px solid transparent;
+    font-family: var(--caps);
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+    color: var(--paper);
+    text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .site-nav a:hover { color: var(--ember); border-color: var(--ember); }
+
+  .site-nav a.active {
+    background-color: var(--brass);
+    border-color: var(--brass);
+    color: var(--ink);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem 5.5rem;
+    text-align: center;
+  }
+
+  .hero-logo {
+    margin: 0 auto;
+    width: min(760px, 100%);
+    /* The logo art sits on near-black; fade its edges into the page. */
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
+            mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
+    filter: drop-shadow(0 0 40px rgba(217, 130, 91, 0.25));
+    animation: hero-breathe 8s ease-in-out infinite;
+  }
+
+  .hero-tag {
+    margin: 0.5rem 0 0;
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    font-style: italic;
+    color: var(--paper);
+  }
+
+  .hero-sub {
+    margin: 0.3rem 0 2rem;
+    font-family: var(--caps);
+    letter-spacing: 3px;
+    color: var(--teal);
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.55rem 1.5rem;
+    border: 1px solid var(--brass);
+    background: transparent;
+    color: var(--paper);
+    font-family: var(--caps);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn:hover {
+    background-color: var(--panel);
+    box-shadow: 0 0 14px rgba(201, 169, 106, 0.35);
+  }
+
+  .btn-solid {
+    background-color: var(--brass);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .btn-solid:hover {
+    background-color: var(--ember);
+    border-color: var(--ember);
+    color: var(--ink);
+    box-shadow: 0 0 16px var(--glow);
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    width: 22px;
+    height: 36px;
+    margin-left: -11px;
+    border: 1px solid var(--brass-dim);
+    border-radius: 12px;
+  }
+
+  .scroll-cue::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    width: 4px;
+    height: 7px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: var(--peach);
+    animation: cue 2s ease-in-out infinite;
+  }
+
+  @keyframes cue {
+    0% { transform: translateY(0); opacity: 1; }
+    80%, 100% { transform: translateY(14px); opacity: 0; }
+  }
+
+  @keyframes hero-breathe {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ---------- Sections ---------- */
+  .section {
+    padding: 3rem 0 4rem;
+  }
+
+  .divider {
+    width: min(560px, 90%);
+    height: auto;
+    margin: 0 auto 0.5rem;
+    filter: drop-shadow(0 0 12px rgba(143, 168, 166, 0.2));
+  }
+
+  .section-title {
+    margin: 0 0 1.75rem;
+    font-family: var(--caps);
+    font-weight: 600;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    letter-spacing: 6px;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--brass);
+    text-shadow: 0 0 22px rgba(217, 130, 91, 0.25);
+  }
+
+  .frame {
+    position: relative;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background-color: var(--panel-a);
+    border: 4px double var(--brass);
+    outline: 1px solid var(--brass-dim);
+    outline-offset: 6px;
+  }
+
+  .lead {
+    margin: 0 0 0.6rem;
+    font-size: clamp(1.3rem, 2.6vw, 1.55rem);
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .aside {
+    margin: 0;
+    font-style: italic;
+    text-align: center;
+    color: var(--teal);
+  }
+
+  /* About: portrait + text */
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .portrait {
+    position: relative;
+    margin: 0;
+    border: 4px double var(--brass);
+    outline: 1px solid var(--brass-dim);
+    outline-offset: 6px;
+    box-shadow: 0 0 34px rgba(217, 130, 91, 0.25);
+    overflow: hidden;
+  }
+
+  .portrait img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform 1.2s ease;
+  }
+
+  .portrait:hover img { transform: scale(1.04); }
+
+  .about-text .lead,
+  .about-text .aside { text-align: left; }
+
+  .about-text .lead { font-size: clamp(1.45rem, 3vw, 1.85rem); }
+
+  .about-text p + p { margin-top: 1rem; }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .pill {
+    padding: 0.1rem 0.8rem;
+    border: 1px solid var(--teal);
+    font-size: 1rem;
+    color: var(--paper);
+  }
+
+  /* Create + commissions side by side */
+  .duo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .duo .frame { display: flex; flex-direction: column; }
+
+  .card-title {
+    margin: 0 0 1rem;
+    font-family: var(--caps);
+    font-weight: 600;
+    font-size: 1.6rem;
+    letter-spacing: 4px;
+    text-align: center;
+    color: var(--brass);
+  }
+
+  .card-title::after {
+    content: "\25C6";
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.7rem;
+    color: var(--ember);
+  }
+
+  .limits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .limits li {
+    padding: 0.15rem 0.8rem;
+    border: 1px solid rgba(217, 130, 91, 0.6);
+    color: var(--peach);
+    font-size: 1rem;
+  }
+
+  .limits-label {
+    margin: 1.5rem 0 0;
+    font-family: var(--caps);
+    letter-spacing: 2px;
+    text-align: center;
+    color: var(--teal);
+  }
+
+  .duo .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+
+  .copy-status {
+    display: block;
+    min-height: 1.5em;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    font-style: italic;
+    text-align: center;
+    color: var(--peach);
+  }
+
+  /* Where to find me */
+  .find-intro { margin-bottom: 2rem; }
+
+  .seas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sea {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1rem 1.2rem 1.1rem;
+    background-color: var(--panel-a);
+    border: 3px double var(--brass);
+    color: var(--paper);
+    text-decoration: none;
+    overflow: hidden;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  }
+
+  .sea::before {
+    content: "";
+    position: absolute;
+    right: -30px;
+    bottom: -40px;
+    width: 110px;
+    height: 110px;
+    background: url('assets/jelly.webp') center / contain no-repeat;
+    opacity: 0.08;
+    transform: rotate(-12deg);
+    transition: opacity 0.35s ease, transform 0.6s ease;
+  }
+
+  .sea:hover {
+    border-color: var(--ember);
+    box-shadow: 0 0 22px var(--glow);
+    transform: translateY(-4px);
+  }
+
+  .sea:hover::before {
+    opacity: 0.28;
+    transform: rotate(0deg) translateY(-8px);
+  }
+
+  .sea-name {
+    font-family: var(--caps);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--brass);
+  }
+
+  .sea:hover .sea-name { color: var(--peach); }
+
+  .sea-desc {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--teal);
+  }
+
+  .sea-arrow {
+    margin-top: auto;
+    padding-top: 0.6rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--paper);
+  }
+
+  .sea.featured {
+    grid-column: 1 / -1;
+    text-align: center;
+    align-items: center;
+    padding: 1.4rem;
+  }
+
+  .sea.featured .sea-name { font-size: 1.7rem; }
+  .sea.featured::before { right: 4%; bottom: -30px; width: 140px; height: 140px; }
+
+  /* Random facts: field-guide specimen card */
+  .specimen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .specimen-plate {
+    position: sticky;
+    top: 6rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  .specimen-plate img {
+    width: 100%;
+    filter: drop-shadow(0 0 26px rgba(217, 130, 91, 0.4));
+    animation: hero-breathe 7s ease-in-out infinite;
+  }
+
+  .specimen-plate figcaption {
+    margin-top: 0.75rem;
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .specimen-plate .latin {
+    display: block;
+    font-size: 1.35rem;
+    color: var(--peach);
+  }
+
+  .facts {
+    margin: 0;
+  }
+
+  .fact {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(201, 169, 106, 0.22);
+  }
+
+  .fact:last-child { border-bottom: 0; }
+
+  .fact dt {
+    font-family: var(--caps);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+    line-height: 1.6;
+    color: var(--brass);
+  }
+
+  .fact dd {
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .fact .swatch {
+    display: inline-block;
+    width: 0.9em;
+    height: 0.9em;
+    margin-right: 0.4em;
+    vertical-align: -0.05em;
+    border-radius: 50%;
+    background: var(--peach);
+    box-shadow: 0 0 10px var(--peach), 0 0 22px var(--ember);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .fact.warning {
+    margin-top: 0.75rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--ember);
+    background: rgba(217, 130, 91, 0.1);
+  }
+
+  .fact.warning dt { color: var(--ember); }
+  .fact.warning dd { color: var(--peach); font-style: italic; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  /* Final word */
+  .quote {
+    margin: 0 auto;
+    max-width: 760px;
+    text-align: center;
+  }
+
+  .quote p {
+    margin: 0;
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--paper);
+  }
+
+  .quote p::before,
+  .quote p::after { color: var(--ember); }
+  .quote p::before { content: "\201C"; }
+  .quote p::after { content: "\201D"; }
+
+  .quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-size: 1.35rem;
+    font-style: italic;
+    color: var(--brass);
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 2.5rem 0 3rem;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--teal);
+  }
+
+  .site-footer a { color: var(--brass); }
+
+  /* ---------- Floating mascot ---------- */
+  .mascot-wrap {
+    position: fixed;
+    left: clamp(4px, 1vw, 16px);
+    bottom: 0;
+    z-index: 40;
+    width: clamp(90px, 13vw, 180px);
+    height: clamp(110px, 16vw, 220px);
+    pointer-events: none;
+  }
+
+  .mascot {
+    position: absolute;
+    inset: 0;
+    background: url('assets/jelly.webp') left bottom / contain no-repeat;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: drop-shadow(0 0 14px rgba(217, 130, 91, 0.35));
+    transition: filter 0.3s ease;
+    animation: mascot-float 7s ease-in-out infinite;
+  }
+
+  .mascot-wrap:hover .mascot,
+  .mascot-wrap.talking .mascot {
+    filter: drop-shadow(0 0 26px rgba(217, 130, 91, 0.65));
+  }
+
+  .mascot-speech {
+    position: absolute;
+    left: calc(100% + 14px);
+    bottom: 45%;
+    width: max-content;
+    max-width: min(240px, calc(100vw - 130px));
+    padding: 0.6rem 1rem;
+    background-color: var(--panel);
+    border: 3px double var(--brass);
+    box-shadow: 0 0 18px rgba(217, 130, 91, 0.25);
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: var(--paper);
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  .mascot-speech::before,
+  .mascot-speech::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    border-style: solid;
+    border-color: transparent;
+  }
+
+  .mascot-speech::before {
+    left: -14px;
+    margin-top: -11px;
+    border-width: 11px 11px 11px 0;
+    border-right-color: var(--brass);
+  }
+
+  .mascot-speech::after {
+    left: -9px;
+    margin-top: -9px;
+    border-width: 9px 9px 9px 0;
+    border-right-color: var(--panel);
+  }
+
+  .mascot-wrap:hover .mascot-speech,
+  .mascot-wrap.talking .mascot-speech { animation: mascot-speak 6.4s ease-in-out infinite; }
+  .mascot-wrap:hover .mascot-speech.s2,
+  .mascot-wrap.talking .mascot-speech.s2 { animation-delay: 1.6s; }
+  .mascot-wrap:hover .mascot-speech.s3,
+  .mascot-wrap.talking .mascot-speech.s3 { animation-delay: 3.2s; }
+  .mascot-wrap:hover .mascot-speech.s4,
+  .mascot-wrap.talking .mascot-speech.s4 { animation-delay: 4.8s; }
+
+  @keyframes mascot-speak {
+    0% { opacity: 0; transform: translateX(-8px) scale(0.96); }
+    3% { opacity: 1; transform: translateX(0) scale(1); }
+    22% { opacity: 1; transform: translateX(0) scale(1); }
+    25%, 100% { opacity: 0; transform: translateX(6px) scale(0.98); }
+  }
+
+  @keyframes mascot-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-16px); }
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .js .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---------- Small screens ---------- */
+  @media (max-width: 820px) {
+    .about,
+    .duo,
+    .specimen { grid-template-columns: 1fr; }
+
+    .portrait { max-width: 420px; margin: 0 auto; }
+
+    .about-text .lead,
+    .about-text .aside { text-align: center; }
+
+    .pill-row { justify-content: center; }
+
+    .specimen-plate { position: static; max-width: 260px; margin: 0 auto; }
+  }
+
+  @media (max-width: 560px) {
+    body { font-size: 1.1rem; }
+
+    .site-nav a { padding: 0.2rem 0.55rem; font-size: 0.95rem; letter-spacing: 1px; }
+
+    .fact { grid-template-columns: 1fr; gap: 0.1rem; }
+
+    .mascot-wrap { width: 72px; height: 88px; opacity: 0.9; }
+
+    .section-title { letter-spacing: 3px; }
+  }
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    .page-rays span,
+    .page-bubbles span,
+    .loader-jelly,
+    .loader-text span,
+    .hero-logo,
+    .scroll-cue::after,
+    .specimen-plate img,
+    .fact .swatch,
+    .mascot { animation: none; }
+
+    .page-rays span { opacity: 0.25; }
+    .loader-text span { opacity: 1; }
+    .orin-loader { animation: loader-out 0.5s ease 0.6s forwards; }
+
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+
+    .mascot-wrap:hover .mascot-speech,
+    .mascot-wrap.talking .mascot-speech { animation: none; }
+    .mascot-wrap:hover .mascot-speech.s1,
+    .mascot-wrap.talking .mascot-speech.s1 { opacity: 1; transform: none; }
+  }
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#about">Skip to content</a>
+
+  <div class="page-bg" aria-hidden="true"></div>
+  <div class="page-veil" aria-hidden="true"></div>
+  <div class="page-rays" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="page-bubbles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="orin-loader" aria-hidden="true">
+    <div class="loader-jelly"></div>
+    <div class="loader-text">Descending<span class="d1">.</span><span class="d2">.</span><span class="d3">.</span></div>
+  </div>
+
+  <div class="page">
+    <header class="hero">
+      <h1 style="margin:0;width:100%">
+        <img class="hero-logo" src="assets/logo.webp" alt="Orin Fenn" width="1536" height="1024" />
+      </h1>
+      <p class="hero-tag">a jellyfish floating through the sea of life</p>
+      <p class="hero-sub">bots &middot; worlds &middot; homepages</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#find">Find Me</a>
+        <a class="btn" href="#commissions">Commissions</a>
+      </div>
+      <a class="scroll-cue" href="#about" aria-label="Scroll down"></a>
+    </header>
+
+    <nav class="site-nav" aria-label="Sections">
+      <ul>
+        <li><a href="#about">Who</a></li>
+        <li><a href="#create">Create</a></li>
+        <li><a href="#commissions">Commissions</a></li>
+        <li><a href="#find">Find Me</a></li>
+        <li><a href="#facts">Facts</a></li>
+        <li><a href="#final">Final Word</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- WHO IS ORIN FENN -->
+      <section class="section" id="about">
+        <div class="wrap">
+          <img class="divider" src="assets/divider.webp" alt="" width="2000" height="666" />
+          <h2 class="section-title">Who is Orin Fenn?</h2>
+          <div class="about reveal">
+            <figure class="portrait">
+              <img src="assets/drift.webp" alt="A figure drifting through a dark kelp forest lit by glowing peach jellyfish" width="1024" height="1024" loading="lazy" />
+            </figure>
+            <div class="about-text frame">
+              <p class="lead">a jellyfish floating through the sea of life</p>
+              <p class="aside">happy as a clam when creating bots and worlds</p>
+              <div class="pill-row" aria-label="Things I make">
+                <span class="pill">bots</span>
+                <span class="pill">worlds</span>
+                <span class="pill">lorebooks</span>
+                <span class="pill">homepages</span>
+                <span class="pill">HTML templates</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT I CREATE + COMMISSIONS -->
+      <section class="section" id="create">
+        <div class="wrap">
+          <img class="divider" src="assets/divider.webp" alt="" width="2000" height="666" loading="lazy" />
+          <h2 class="section-title">What I Create</h2>
+          <div class="duo">
+            <article class="frame reveal">
+              <h3 class="card-title">Anything</h3>
+              <p class="lead">i am willing to make anything that does not violate ToS</p>
+              <p class="limits-label">anything except</p>
+              <ul class="limits">
+                <li>underage</li>
+                <li>bestiality</li>
+                <li>full-blood relations</li>
+              </ul>
+            </article>
+
+            <article class="frame reveal" id="commissions">
+              <h3 class="card-title">Commissions</h3>
+              <p class="lead">i do commissions for saucepan or janitor homepages and HTML templates</p>
+              <p class="aside">want to see examples or talk pricing? DM me on Discord @orinfenn</p>
+              <div class="btn-row">
+                <button class="btn btn-solid" type="button" data-copy="orinfenn">Copy Discord @orinfenn</button>
+                <a class="btn" href="https://ko-fi.com/orinfenn" target="_blank" rel="noopener">Ko-fi</a>
+              </div>
+              <span class="copy-status" role="status" aria-live="polite"></span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHERE TO FIND ME -->
+      <section class="section" id="find">
+        <div class="wrap">
+          <img class="divider" src="assets/divider.webp" alt="" width="2000" height="666" loading="lazy" />
+          <h2 class="section-title">Where to Find Me</h2>
+          <div class="find-intro reveal">
+            <p class="lead">check out my <a href="https://orinfenn.carrd.co/" target="_blank" rel="noopener">carrd</a> for more info on which seas to find me in</p>
+            <p class="aside">or DM me on Discord @orinfenn</p>
+          </div>
+          <ul class="seas reveal">
+            <li class="sea-item" style="grid-column:1/-1">
+              <a class="sea featured" href="https://orinfenn.carrd.co/" target="_blank" rel="noopener">
+                <span class="sea-name">Carrd</span>
+                <span class="sea-desc">the map to every sea I swim in</span>
+                <span class="sea-arrow">dive in &rarr;</span>
+              </a>
+            </li>
+            <li>
+              <a class="sea" href="https://saucepan.ai/u/OrinFenn" target="_blank" rel="noopener">
+                <span class="sea-name">Saucepan</span>
+                <span class="sea-desc">bots, lorebooks, and collections</span>
+                <span class="sea-arrow">visit &rarr;</span>
+              </a>
+            </li>
+            <li>
+              <a class="sea" href="https://janitorai.com/profiles/1c93754f-777e-4f43-a5e8-dfc92611ac00_profile-of-orin-fenn" target="_blank" rel="noopener">
+                <span class="sea-name">Janitor AI</span>
+                <span class="sea-desc">bots and worlds</span>
+                <span class="sea-arrow">visit &rarr;</span>
+              </a>
+            </li>
+            <li>
+              <a class="sea" href="https://tipsy.chat/profile/1791092766651871038" target="_blank" rel="noopener">
+                <span class="sea-name">Tipsy</span>
+                <span class="sea-desc">bots and worlds</span>
+                <span class="sea-arrow">visit &rarr;</span>
+              </a>
+            </li>
+            <li>
+              <a class="sea" href="https://crushon.ai/en/profile/a4281d82-bfb5-11f1-ab44-6ae98ac2d7e3?shared=true" target="_blank" rel="noopener">
+                <span class="sea-name">CrushOn</span>
+                <span class="sea-desc">bots and worlds</span>
+                <span class="sea-arrow">visit &rarr;</span>
+              </a>
+            </li>
+            <li>
+              <a class="sea" href="https://craveu.ai/user/VfBQEVOX" target="_blank" rel="noopener">
+                <span class="sea-name">CraveU</span>
+                <span class="sea-desc">bots and worlds</span>
+                <span class="sea-arrow">visit &rarr;</span>
+              </a>
+            </li>
+            <li>
+              <a class="sea" href="https://linkin.love/creator/orinfenn" target="_blank" rel="noopener">
+                <span class="sea-name">Linkin.love</span>
+                <span class="sea-desc">bots and worlds</span>
+                <span class="sea-arrow">visit &rarr;</span>
+              </a>
+            </li>
+            <li>
+              <a class="sea" href="https://ko-fi.com/orinfenn" target="_blank" rel="noopener">
+                <span class="sea-name">Ko-fi</span>
+                <span class="sea-desc">fuel the glow with encouragement</span>
+                <span class="sea-arrow">support &rarr;</span>
+              </a>
+            </li>
+            <li>
+              <button class="sea" type="button" data-copy="orinfenn" style="width:100%;font:inherit;text-align:left;cursor:pointer">
+                <span class="sea-name">Discord</span>
+                <span class="sea-desc">@orinfenn &middot; DMs open</span>
+                <span class="sea-arrow">copy handle &rarr;</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- RANDOM FACTS -->
+      <section class="section" id="facts">
+        <div class="wrap">
+          <img class="divider" src="assets/divider.webp" alt="" width="2000" height="666" loading="lazy" />
+          <h2 class="section-title">Random Facts</h2>
+          <div class="specimen">
+            <figure class="specimen-plate reveal">
+              <img src="assets/jelly.webp" alt="A glowing peach and teal jellyfish" width="1512" height="1512" loading="lazy" />
+              <figcaption>
+                <span class="latin">Chrysaora fuscescens</span>
+                specimen no. 01 &middot; field notes
+              </figcaption>
+            </figure>
+            <div class="frame reveal">
+              <dl class="facts">
+                <div class="fact"><dt>Species</dt><dd><em>chrysaora fuscescens</em></dd></div>
+                <div class="fact"><dt>Common Name</dt><dd>pacific sea nettle, but you can call me <em>Orin Fenn</em></dd></div>
+                <div class="fact"><dt>Habitat</dt><dd>the darkest recesses of mankind's hearts</dd></div>
+                <div class="fact"><dt>Glow Color</dt><dd><span class="swatch" aria-hidden="true"></span>peach</dd></div>
+                <div class="fact"><dt>Diet</dt><dd>the hopes and dreams of children. jk. maybe.</dd></div>
+                <div class="fact"><dt>Activity</dt><dd>nocturnal. fueled by encouragement and praise</dd></div>
+                <div class="fact"><dt>Temperament</dt><dd>chill and willing to go out of my way to help a friend</dd></div>
+                <div class="fact"><dt>Known Habits</dt><dd>putting my all into a project, then losing interest</dd></div>
+                <div class="fact"><dt>Current Migration</dt><dd>characters that require you to be colorblind</dd></div>
+                <div class="fact"><dt>Favorite Treasure</dt><dd>my aesthetic. seriously. i love it to a ridiculous degree.</dd></div>
+                <div class="fact"><dt>Natural Predators</dt><dd>dominant black flags who leave little room for making my own choices</dd></div>
+                <div class="fact"><dt>Companion Species</dt><dd>i'm a lone jellyfish (for now), but may find my bloom someday</dd></div>
+                <div class="fact"><dt>Fun Fact</dt><dd>despite its long, maroon tentacles that can reach 12&ndash;15 feet, the chrysaora fuscescens' sting is irritating but rarely dangerous to humans</dd></div>
+                <div class="fact warning"><dt>Warning</dt><dd>interact with caution. my creations sting.</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- A FINAL WORD -->
+      <section class="section" id="final">
+        <div class="wrap">
+          <img class="divider" src="assets/divider.webp" alt="" width="2000" height="666" loading="lazy" />
+          <h2 class="section-title">A Final Word</h2>
+          <blockquote class="quote frame reveal">
+            <p>trust the process of creation. go with the flow, as cliche as it is.</p>
+            <cite>&mdash; Orin Fenn</cite>
+          </blockquote>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>&copy; <span id="year">2026</span> Orin Fenn &middot; drifting since forever &middot; <a href="#top" onclick="window.scrollTo({top:0});return false;">back to the surface &uarr;</a></p>
+      </div>
+    </footer>
+  </div>
+
+  <div class="mascot-wrap" aria-hidden="true">
+    <div class="mascot"></div>
+    <div class="mascot-speech s1">Stay close. It gets quieter down here.</div>
+    <div class="mascot-speech s2">I'm only a little dangerous.</div>
+    <div class="mascot-speech s3">Breathe when I breathe.</div>
+    <div class="mascot-speech s4">Follow the light.</div>
+  </div>
+
+<script>
+  (function () {
+    var year = document.getElementById('year');
+    if (year) year.textContent = new Date().getFullYear();
+
+    // Copy Discord handle
+    var status = document.querySelector('.copy-status');
+    document.querySelectorAll('[data-copy]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var text = el.getAttribute('data-copy');
+        var done = function (ok) {
+          var msg = ok ? 'copied @' + text + ' to your clipboard' : 'my Discord is @' + text;
+          if (status) status.textContent = msg;
+          var arrow = el.querySelector('.sea-arrow');
+          if (arrow) {
+            var old = arrow.textContent;
+            arrow.textContent = ok ? 'copied!' : '@' + text;
+            setTimeout(function () { arrow.textContent = old; }, 2000);
+          }
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+        } else {
+          done(false);
+        }
+      });
+    });
+
+    // Tap the mascot on touch screens to make it talk
+    var mascot = document.querySelector('.mascot-wrap');
+    var body = mascot && mascot.querySelector('.mascot');
+    if (body) {
+      body.addEventListener('click', function () { mascot.classList.toggle('talking'); });
+    }
+
+    // Reveal on scroll + active nav link
+    if ('IntersectionObserver' in window) {
+      var revealer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); revealer.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(function (el) { revealer.observe(el); });
+
+      var links = {};
+      document.querySelectorAll('.site-nav a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          Object.keys(links).forEach(function (k) { links[k].classList.toggle('active', k === e.target.id); });
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      document.querySelectorAll('main .section').forEach(function (s) { spy.observe(s); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+  })();
+</script>
+</body>
+</html>
